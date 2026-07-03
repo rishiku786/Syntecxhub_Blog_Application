@@ -164,13 +164,10 @@ const Profile = () => {
       const userId = currentUser?._id || 'guest';
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (key && key.startsWith('mock_likes_')) {
-          try {
-            const likes = JSON.parse(localStorage.getItem(key)) || [];
-            if (likes.includes(userId)) {
-              mockLikesCount++;
-            }
-          } catch { /* silent */ }
+        if (key && key.startsWith('mock_like_') && key.endsWith(`_${userId}`)) {
+          if (localStorage.getItem(key) === 'true') {
+            mockLikesCount++;
+          }
         }
       }
     }
